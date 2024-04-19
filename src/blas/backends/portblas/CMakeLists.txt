@@ -152,19 +152,21 @@ if (NOT PORTBLAS_FOUND)
   FetchContent_MakeAvailable(portBLAS)
   message(STATUS "Looking for portBLAS - downloaded")
 
+  # Getting properties from portBLAS included cmake config
+  get_target_property(portBLAS_compiler_flags portblas INTERFACE_COMPILE_OPTIONS)
+  get_target_property(portBLAS_definitions portblas INTERFACE_COMPILE_DEFINITIONS)
+  get_target_property(portBLAS_include portblas INTERFACE_INCLUDE_DIRECTORIES)
+
   add_library(PORTBLAS::portblas INTERFACE IMPORTED)
-  target_include_directories(PORTBLAS::portblas
-    INTERFACE ${FETCHCONTENT_BASE_DIR}/portblas-src/include
-    INTERFACE ${FETCHCONTENT_BASE_DIR}/portblas-src/src
-  )
+
+# This define is tuning portBLAS in header-only mode
+  target_compile_options(PORTBLAS::portblas INTERFACE ${portBLAS_compiler_flags})
+  target_compile_definitions(PORTBLAS::portblas INTERFACE ${portBLAS_definitions})
+  target_include_directories(PORTBLAS::portblas INTERFACE ${portBLAS_include})
+
 else()
   message(STATUS "Looking for portBLAS - found")
 endif()
-
-# This define is tuning portBLAS in header-only mode
-target_compile_definitions(PORTBLAS::portblas INTERFACE ${PORTBLAS_TUNING_TARGET})
-target_compile_definitions(PORTBLAS::portblas INTERFACE BLAS_ENABLE_COMPLEX=1)
-target_compile_options(ONEMKL::SYCL::SYCL INTERFACE "-DSB_ENABLE_USM=ON")
 
 set(SOURCES
   portblas_level1_double.cpp portblas_level1_float.cpp
