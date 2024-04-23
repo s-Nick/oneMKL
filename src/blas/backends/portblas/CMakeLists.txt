@@ -155,6 +155,7 @@ if (NOT PORTBLAS_FOUND)
 
 else()
   message(STATUS "Looking for portBLAS - found")
+  add_library(portblas ALIAS PORTBLAS::portblas)
 endif()
 
 set(SOURCES
