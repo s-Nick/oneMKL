@@ -147,8 +147,10 @@ if (NOT PORTBLAS_FOUND)
   set(FETCHCONTENT_BASE_DIR "${CMAKE_BINARY_DIR}/deps")
   FetchContent_Declare(
     portBLAS
-    GIT_REPOSITORY https://github.com/codeplaysoftware/portBLAS
-    GIT_TAG        master
+    #GIT_REPOSITORY https://github.com/codeplaysoftware/portBLAS
+    #GIT_TAG        master
+    GIT_REPOSITORY https://github.com/s-Nick/sycl-blas
+    GIT_TAG        update_compiler_support
   )
   FetchContent_MakeAvailable(portblas)
   message(STATUS "Looking for portBLAS - downloaded")
