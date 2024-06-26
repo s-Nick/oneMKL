@@ -157,8 +157,8 @@ if (NOT PORTBLAS_FOUND)
   set(FETCHCONTENT_BASE_DIR "${CMAKE_BINARY_DIR}/deps")
   FetchContent_Declare(
     portBLAS
-    GIT_REPOSITORY https://github.com/codeplaysoftware/portBLAS
-    GIT_TAG        main
+    GIT_REPOSITORY https://github.com/s-Nick/sycl-blas.git
+    GIT_TAG        disable_txsv_intel_gpu
   )
   FetchContent_MakeAvailable(portblas)
   message(STATUS "Looking for portBLAS - downloaded")
